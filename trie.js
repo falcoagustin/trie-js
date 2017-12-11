@@ -1,18 +1,22 @@
 class TrieNode {
   constructor() {
-    this.letter = ''
     this.children = {}
     this.isLeaf = false
   }
 
+  splitWord(word) {
+    return {
+      letter: word.charAt(0),
+      remainingLetters: word.substr(1, word.length)
+    }
+  }
+
   insert(word) {
-    const letter = word.charAt(0)
-    const remainingLetters = word.substr(1, word.length)
+    const { letter, remainingLetters } = this.splitWord(word)
     if (letter in this.children) {
       this.children[letter].insert(remainingLetters)
     } else {
       if (letter) {
-        this.letter = letter
         this.children[letter] = new TrieNode()
         this.children[letter].insert(remainingLetters)
       } else {
@@ -21,19 +25,23 @@ class TrieNode {
     }
   }
 
-  // remove(word) {
-  //   const letter = word.charAt(0)
-  //   const remainingLetters = word.substr(1, word.length)
-  //   if (!letter && this.isLeaf) {
-  //     delete this
-  //   } else {
-  //     if (!letter) {
-  //       return
-  //     } else {
+  print() {
+    for (let k in this.children) {
+      console.log(k)
+      this.children[k].print()
+    }
+  }
 
-  //     }
-  //   }
-  // }
+  contains(word) {
+    const { letter, remainingLetters } = this.splitWord(word)
+    if (!letter) {
+      return true
+    }
+    if (!(letter in this.children)) {
+      return false
+    }
+    return this.children[letter].contains(remainingLetters)
+  }
 }
 
 class Trie {
@@ -51,8 +59,20 @@ class Trie {
   }
 
   remove(word) {
-    this.root.remove(word)
+  }
+
+  contains(word) {
+    return this.root.contains(word)
+  }
+
+  print() {
+    this.root.print()
   }
 }
 
-n = new Trie(['algo', 'algu'])
+n = new Trie(['aalgo', 'algu'])
+n.print()
+console.log(n.contains('algo'))
+console.log(n.contains('algu'))
+console.log(n.contains('aldasd'))
+console.log(n.contains('aalgo'))
