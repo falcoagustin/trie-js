@@ -3,14 +3,21 @@ Trie = new Trie()
 
 const tests = new Map();
 
-tests.set(() => {
-  Trie.insert('word')
-  return Trie.contains('word')
+tests.set({
+  name: 'Single insert',
+  exec: () => {
+    Trie.insert('word')
+    return Trie.contains('word')
+  }
 }, true)
-tests.set(() => {
-  Trie.insert(['several', 'words'])
-  return [Trie.contains('several'), Trie.contains('words')]
-    .reduce((acc, item) => acc && item, true)
+
+tests.set({
+  name: 'Multiple insert',
+  exec: () => {
+    Trie.insert(['several', 'words'])
+    return [Trie.contains('several'), Trie.contains('words')]
+      .reduce((acc, item) => acc && item, true)
+  }
 }, true)
 
 function TestNotPassedException(message) {
@@ -19,11 +26,10 @@ function TestNotPassedException(message) {
 }
 
 for (const entry of tests) {
-  console.log(entry[1])
-  if (entry[0]() === entry[1]) {
+  if (entry[0].exec() === entry[1]) {
     console.log('Passed!')
   } else {
-    throw TestNotPassedException(`${entry[1]} result failed`)
+    throw TestNotPassedException(`${entry[0].name} result failed`)
   }
 }
 
