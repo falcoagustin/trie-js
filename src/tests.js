@@ -1,7 +1,7 @@
 let Trie = require('./Trie')
 Trie = new Trie()
 
-const tests = new Map();
+const tests = new Map()
 
 tests.set({
   name: 'Single insert',
@@ -32,4 +32,3 @@ for (const entry of tests) {
     throw TestNotPassedException(`${entry[0].name} result failed`)
   }
 }
-

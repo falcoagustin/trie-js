@@ -5,12 +5,12 @@
   "main": "trie.js",
   "scripts": {
     "test-env": "node src/test-env.js",
-    "lint": "standard src/*",
+    "lint": "eslint src/*",
     "test": "npm run lint && npm run test-env"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "standard": "^10.0.3"
+    "eslint": "^3.19.0"
   }
 }
