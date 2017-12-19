@@ -4,7 +4,7 @@
   "description": "",
   "main": "trie.js",
   "scripts": {
-    "test-env": "node src/test-env.js",
+    "test-env": "node src/tests.js",
     "lint": "eslint src/*",
     "test": "npm run lint && npm run test-env"
   },

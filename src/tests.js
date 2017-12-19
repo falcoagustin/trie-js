@@ -1,4 +1,4 @@
-let Trie = require('./Trie')
+let Trie = require('./trie')
 Trie = new Trie()
 
 const tests = new Map()
