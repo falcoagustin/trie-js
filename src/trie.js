@@ -21,7 +21,6 @@ class TrieNode {
 
   insert(word) {
     if (!word) return
-    debugger
     const { letter, remainingLetters } = this.splitWord(word)
     if (letter in this.children) {
       this.children[letter].insert(remainingLetters)
@@ -37,15 +36,15 @@ class TrieNode {
   remove(word, hasAlreadyRemoved) {
     const { letter, remainingLetters } = this.splitWord(word)
     if (!remainingLetters) {
+      const toDelete = this.children[letter].getChildren()
+      if (Object.keys(toDelete).length === 0) {
+        delete this.children[letter]
+      } else {
+        this.isLeaf = false
+      }
       this.children[letter].remove(remainingLetters, true)
     } else {
       this.children[letter].remove(remainingLetters, hasAlreadyRemoved)
-    }
-    const toDelete = this.children[letter].getChildren()
-    if (Object.keys(toDelete).length === 0) {
-      delete this.children[letter]
-    } else {
-      this.isLeaf = false
     }
   }
 
@@ -100,9 +99,4 @@ class Trie {
   }
 }
 
-n = new Trie(['algu', 'alguno'])
-// console.log(n.contains('alguno'))
-// n.remove('alguno')
-// console.log(n.contains('alguno'))
-n.print()
-// console.log(n.contains('algu'))
+export default Trie
