@@ -72,14 +72,16 @@ class Trie {
 
   constructor(words) {
     this.root = new TrieNode()
+    if (words) {
+      this.insert(words)
+    }
+  }
+
+  insert(words) {
     if (typeof words === 'string') {
       words = [words]
     }
-    words.map(word => this.insert(word))
-  }
-
-  insert(word) {
-    this.root.insert(word)
+    words.map(word => this.root.insert(String(word)))
   }
 
   remove(word) {
@@ -99,4 +101,4 @@ class Trie {
   }
 }
 
-export default Trie
+module.exports = Trie
