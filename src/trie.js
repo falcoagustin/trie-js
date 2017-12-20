@@ -4,12 +4,8 @@ class TrieNode {
     this.isLeaf = false
   }
 
-  getChildren() {
-    return this.children
-  }
-
-  removeChildren(key) {
-    delete this.children[key]
+  isFreeNode() {
+    return Object.keys(this.children).length === 0
   }
 
   splitWord(word) {
@@ -33,25 +29,26 @@ class TrieNode {
     }
   }
 
-  remove(word, hasAlreadyRemoved) {
+  remove(word) {
     const { letter, remainingLetters } = this.splitWord(word)
-    if (!remainingLetters) {
-      const toDelete = this.children[letter].getChildren()
-      if (Object.keys(toDelete).length === 0) {
-        delete this.children[letter]
-      } else {
+    if (this.children[letter]) {
+      if (!remainingLetters) {
         this.isLeaf = false
+        return this.children[letter].isFreeNode()
+      } else {
+        if (this.children[letter].remove(remainingLetters)) {
+          delete this.children[letter]
+          return !this.isLeaf && this.isFreeNode()
+        }
       }
-      this.children[letter].remove(remainingLetters, true)
-    } else {
-      this.children[letter].remove(remainingLetters, hasAlreadyRemoved)
     }
+    return false
   }
 
   contains(word) {
     const { letter, remainingLetters } = this.splitWord(word)
-    if (!letter) {
-      return true
+    if (!remainingLetters) {
+      return this.isLeaf
     }
     if (!(letter in this.children)) {
       return false
