@@ -79,11 +79,13 @@ class Trie {
       words = [words]
     }
     words.map(word => this.root.insert(String(word)))
+    return this
   }
 
   remove(word) {
     if (this.root.contains(word)) {
       this.root.remove(word, false)
+      return this
     } else {
       throw 'Not in trie.'
     }
