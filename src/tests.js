@@ -1,24 +1,5 @@
-let Trie = require('./trie')
-Trie = new Trie()
-
 const tests = new Map()
-
-tests.set({
-  name: 'Single insert',
-  exec: () => {
-    Trie.insert('word')
-    return Trie.contains('word')
-  }
-}, true)
-
-tests.set({
-  name: 'Multiple insert',
-  exec: () => {
-    Trie.insert(['several', 'words'])
-    return [Trie.contains('several'), Trie.contains('words')]
-      .reduce((acc, item) => acc && item, true)
-  }
-}, true)
+require('./tests/index')(tests)
 
 function TestNotPassedException(message) {
   this.message = message
