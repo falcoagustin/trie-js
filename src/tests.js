@@ -1,5 +1,4 @@
-const tests = new Map()
-require('./tests/index')(tests)
+const tests = require('./tests/index')
 
 function TestNotPassedException(message) {
   this.message = message

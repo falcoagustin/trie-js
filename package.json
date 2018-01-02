@@ -1,8 +1,8 @@
 {
-  "name": "trie",
+  "name": "trie-words-javascript",
   "version": "1.0.0",
   "description": "",
-  "main": "trie.js",
+  "main": "src/trie.js",
   "scripts": {
     "test-env": "node src/tests.js",
     "lint": "eslint src/*",
@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "eslint": "^1.19.0"
   }
 }
